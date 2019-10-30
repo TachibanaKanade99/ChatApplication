@@ -32,7 +32,7 @@ public class WriteServer extends Thread {
 
         String command = "";
 
-        while (!command.equals("logoff") || command.equals("quitchat")){
+        while (!command.equals("logoff") || command.equals("quit")){
             command = scanner.nextLine();
             printWriter.println(command);
         }
