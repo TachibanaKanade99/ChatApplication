@@ -65,7 +65,7 @@ public class ServerWorker extends Thread {
                 }
 
                 else{
-                    String nolti = "Unknown" + cmd + "\n" + "Enter again" + "\n";
+                    String nolti = "Unknown " + cmd + "\n" + "Enter again" + "\n";
                     this.outputStream.write(nolti.getBytes());
                 }
 
@@ -74,19 +74,8 @@ public class ServerWorker extends Thread {
 
     }
 
-    // chat receiver msg
-    private void Chat(String[] tokens) throws IOException {
-        String sendTo = tokens[1];
-        String msg = tokens[2];
-
-        List<ServerWorker> serverWorkerList = server.getServerWorkersList();
-
-        for (ServerWorker worker: serverWorkerList){
-            if (sendTo.equalsIgnoreCase(worker.getLogin())){
-                String message = this.getLogin() + ">> " + msg + "\n";
-                worker.send(message);
-            }
-        }
+    public void send(String message) throws IOException {
+        this.outputStream.write(message.getBytes());
     }
 
     public void Login(String[] tokens) throws IOException {
@@ -159,7 +148,19 @@ public class ServerWorker extends Thread {
         clientSocket.close();
     }
 
-    public void send(String message) throws IOException {
-        this.outputStream.write(message.getBytes());
+    // chat sendTo msg
+    private void Chat(String[] tokens) throws IOException {
+        String sendTo = tokens[1];
+        String msg = tokens[2];
+
+        List<ServerWorker> serverWorkerList = server.getServerWorkersList();
+
+        for (ServerWorker worker: serverWorkerList){
+            if (sendTo.equalsIgnoreCase(worker.getLogin())){
+                String message = this.getLogin() + ">> " + msg + "\n";
+                worker.send(message);
+            }
+        }
     }
+
 }
