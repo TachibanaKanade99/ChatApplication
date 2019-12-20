@@ -2,18 +2,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class WriteServer extends Thread {
 
-    public ChatClient chatClient;
-    public Socket socket;
+//    public ChatClient chatClient;
+    private Socket socket;
+    String str;
     public PrintWriter printWriter;
     public OutputStream serverOut;
 
-    WriteServer(ChatClient chatClient, Socket socket){
-        this.chatClient = chatClient;
+    WriteServer(Socket socket, String str){
         this.socket = socket;
+        this.str = str;
 
         try{
             this.serverOut = socket.getOutputStream();
@@ -28,14 +28,15 @@ public class WriteServer extends Thread {
     public void run() {
 
         //Create scanner:
-        Scanner scanner = new Scanner(System.in);
-
-        String command = "";
-
-        while (!command.equals("logoff") || command.equals("quit")){
-            command = scanner.nextLine();
-            printWriter.println(command);
-        }
+//        Scanner scanner = new Scanner(System.in);
+//
+//        String command = "";
+//
+//        while (!command.equals("logoff") || !command.equals("quit")){
+//            command = scanner.nextLine();
+//            printWriter.println(command);
+//        }
+        printWriter.println();
 
     }
 }

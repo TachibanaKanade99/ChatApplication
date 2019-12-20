@@ -3,7 +3,7 @@
 public class ServerMain {
     //Simple server main function:
     public static void main(String[] args) {
-        int port = 80;
+        int port = 5000;
         Server server = new Server(port);
 
         //Start the server thread:

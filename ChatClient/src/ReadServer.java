@@ -6,19 +6,19 @@ import java.net.Socket;
 
 public class ReadServer extends Thread {
 
-    public ChatClient chatClient;
-    public Socket socket;
-    public BufferedReader bufferedReader;
-    public InputStream serverIn;
+//    public ChatClient chatClient;
+    private Socket socket;
+    private BufferedReader bufferedReader;
+    private InputStream serverIn;
+    private String msg;
 
 
-    ReadServer(ChatClient chatClient, Socket socket){
-        this.chatClient = chatClient;
+    ReadServer(Socket socket){
         this.socket = socket;
 
         try{
 
-            this.serverIn = socket.getInputStream();
+            this.serverIn = this.socket.getInputStream();
             bufferedReader = new BufferedReader(new InputStreamReader(this.serverIn));
 
         }
@@ -27,13 +27,15 @@ public class ReadServer extends Thread {
         }
     }
 
+    public String getMsg() {
+        return msg;
+    }
+
     @Override
     public void run() {
-        String response;
-
         try{
-            while((response = bufferedReader.readLine()) != null){
-                System.out.println("From server: " + response);
+            while((msg = bufferedReader.readLine()) != null){
+                System.out.println("From server " + msg);
             }
         }
         catch (IOException e) {

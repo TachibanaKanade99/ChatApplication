@@ -46,6 +46,7 @@ public class Server extends Thread{
     }
 
     public void RemoveWorker(ServerWorker serverWorker) {
+        System.out.println("Close connection from " + serverWorker.getClientSocket());
         serverWorkersList.remove(serverWorker);
     }
 }
